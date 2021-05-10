@@ -1,5 +1,6 @@
 package aplicacao_console;
 
+import daojpa.DAO;
 import fachada.Fachada;
 
 public class Deletar {
@@ -8,9 +9,8 @@ public class Deletar {
         try {
             System.out.println("Deletando");
 
-            Fachada.apagarVisualizacao(1);
-            Fachada.apagarVisualizacao(2);
-            Fachada.apagarVisualizacao(3);
+            Fachada.apagarVisualizacao(4);
+            Fachada.apagarVisualizacao(5);
 
             System.out.println();
 

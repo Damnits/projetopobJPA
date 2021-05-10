@@ -1,19 +1,26 @@
 package modelo;
+import daojpa.DAO;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "Video20181370044")
 public class Video {
 	@Id
+	@Column
 	private String link;
 	@Column
 	private String nome;
 	@Column
 	private double media;
-	@ManyToMany
+	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Assunto> assuntos = new ArrayList<>();
-	@OneToMany
+	@OneToMany(mappedBy = "video",
+					cascade = {CascadeType.ALL},
+					orphanRemoval = true,
+					fetch = FetchType.EAGER)
 	private List<Visualizacao> visualizacoes = new ArrayList<>();
 
 	public List<Visualizacao> getVisualizacoes() {
@@ -55,7 +62,19 @@ public class Video {
 	public List<Assunto> getAssuntos() {
 		return assuntos;
 	}
+	public void atualizarMedia() {
+		if(this.getVisualizacoes().isEmpty()){
+			this.setMedia(0);
+		}
+		else{
+			int soma = 0;
+			for(Visualizacao v : this.getVisualizacoes()){
+				soma += v.getnota();
+			}
+			this.setMedia(soma/this.visualizacoes.size());
+		}
 
+	}
 	@Override
 	public String toString() {
 		String texto = "Video [" + (link != null ? "link=" + link + ", " : "") + (nome != null ? "nome=" + nome + ", " : "")

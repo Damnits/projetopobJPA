@@ -1,14 +1,16 @@
 package modelo;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 @Entity
+@Table(name = "Usuario20181370044")
 public class Usuario {
 	@Id
 	private String email;
-	@OneToMany
+	@OneToMany(mappedBy = "usuario",
+					cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+					orphanRemoval = true,
+					fetch = FetchType.EAGER)
 	private List<Visualizacao> visualizacoes = new ArrayList<>();
 	public Usuario(){}
 	public Usuario(String email) {

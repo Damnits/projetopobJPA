@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "Assunto20181370044")
+
 public class Assunto {
 	@Id
-	@Column
 	private String palavra;
-	@ManyToMany
+	@ManyToMany(mappedBy="assuntos",
+			cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Video> videos = new ArrayList<>();
 
 	public Assunto(){}

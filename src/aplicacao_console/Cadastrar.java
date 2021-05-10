@@ -14,7 +14,6 @@ public class Cadastrar {
 		Fachada.cadastrarVideo("youtube.com/lol","Campeonato Cblol","lol");
 		Fachada.cadastrarVideo("youtube.com/fausto","Aprendendo Java","java");
 
-
 		/*	Visualizações 	*/
 
 		Fachada.registrarVisualizacao("youtube.com/resenha","Test3@ifpb.com", 1);

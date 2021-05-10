@@ -6,8 +6,13 @@
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
           <factory-entry name="Projeto2" value="c467e2fb-81ee-4a5a-b7ea-9b92bd4990e6" />
+          <factory-entry name="eclipselink-mysql" />
+          <factory-entry name="eclipselink-postgres" />
+          <factory-entry name="hibernate-mysql" />
+          <factory-entry name="hibernate-postgres" />
         </datasource-mapping>
         <naming-strategy-map />
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/META-INF/persistence.xml" />
       </configuration>
     </facet>
   </component>

@@ -37,7 +37,7 @@ public abstract class DAO<T> implements DAOInterface<T> {
 		if(manager==null){
 			/*****************************************************************************
 			 * 	Determinar o nome da unidade de persistencia a ser processada no persistence.xml
-			 *  Este nome � a concatenacao dos nomes provedor+sgbd lidos do arquivo dados.properties
+			 *  Este nome é a concatenacao dos nomes provedor+sgbd lidos do arquivo dados.properties
 			 *****************************************************************************/
 			String nomeUnidadePersistencia=null;
 			Properties dados = new Properties();
@@ -52,9 +52,9 @@ public abstract class DAO<T> implements DAOInterface<T> {
 				log.info("processando a unidade de persistencia: "+ nomeUnidadePersistencia);
 			}
 			catch (Exception e) {
-				log.info("DAO open() - problema na conex�o: "+ e.getMessage());
+				log.info("DAO open() - problema na conexão: "+ e.getMessage());
 				System.exit(0);
-			} 
+			}
 
 			/*****************************************************************************
 			 * 	Substituir o ip do persistence.xml pelo ip do dados.properties
@@ -69,7 +69,7 @@ public abstract class DAO<T> implements DAOInterface<T> {
 			log.info("url= "+prop.getProperty("javax.persistence.jdbc.url"));
 
 			factory = Persistence.createEntityManagerFactory(nomeUnidadePersistencia, prop);
-			manager = factory.createEntityManager();	
+			manager = factory.createEntityManager();
 		}
 	}
 	public static void close(){
@@ -133,11 +133,11 @@ public abstract class DAO<T> implements DAOInterface<T> {
 			if(nomesgbd.equalsIgnoreCase("postgresql"))
 				query = manager.createNativeQuery(new StringBuilder().append("ALTER SEQUENCE ").append(tabela).append("_id_seq RESTART WITH 1").toString());
 			else
-				if(nomesgbd.equalsIgnoreCase("mysql"))
-					query = manager.createNativeQuery("ALTER TABLE "+tabela+" AUTO_INCREMENT = 1");
+			if(nomesgbd.equalsIgnoreCase("mysql"))
+				query = manager.createNativeQuery("ALTER TABLE "+tabela+" AUTO_INCREMENT = 1");
 
 			query.executeUpdate();
-		}	
+		}
 		catch (Exception ex) {
 			throw new RuntimeException("DAO - Nome de SGBD invalido:"+ nomesgbd);
 		}
@@ -145,19 +145,19 @@ public abstract class DAO<T> implements DAOInterface<T> {
 
 	public static Connection getConnection() {
 		try {
-			String driver = (String) manager.getProperties().get("javax.persistence.jdbc.driver");
-			String url = (String)	manager.getProperties().get("javax.persistence.jdbc.url");
-			String user = (String)	manager.getProperties().get("javax.persistence.jdbc.user");
-			String pass = (String)	manager.getProperties().get("javax.persistence.jdbc.password");
+			String driver = (String) 	manager.getProperties().get("javax.persistence.jdbc.driver");
+			String url = (String)		manager.getProperties().get("javax.persistence.jdbc.url");
+			String user = (String)		manager.getProperties().get("javax.persistence.jdbc.user");
+			String pass = (String)		manager.getProperties().get("javax.persistence.jdbc.password");
 			Class.forName(driver);
 			return DriverManager.getConnection(url, user, pass);
-		} 
+		}
 		catch (Exception ex) {
 			return null;
 		}
 	}
 
-	//----------------------- TRANSA��O   ----------------------
+	//----------------------- TRANSAÇÃO   ----------------------
 	public static void begin(){
 		if(!manager.getTransaction().isActive())
 			manager.getTransaction().begin();
@@ -174,7 +174,7 @@ public abstract class DAO<T> implements DAOInterface<T> {
 	}
 
 	public void lock(T obj) {
-		manager.lock(obj,LockModeType.PESSIMISTIC_WRITE); 
+		manager.lock(obj,LockModeType.PESSIMISTIC_WRITE);
 	}
 
 	public static void clear() {
@@ -184,11 +184,7 @@ public abstract class DAO<T> implements DAOInterface<T> {
 		begin();
 		log.debug("esvaziando o banco: ");
 
-		q = manager.createQuery("delete from Assunto");
-		cont =  q.executeUpdate();
-		log.debug("deletou assuntos: "+ cont);
-
-		q = manager.createQuery("delete from Usuario ");
+		q = manager.createQuery("delete from Usuario");
 		cont =  q.executeUpdate();
 		log.debug("deletou usuarios: "+ cont);
 
@@ -199,6 +195,10 @@ public abstract class DAO<T> implements DAOInterface<T> {
 		q = manager.createQuery("delete from Visualizacao ");
 		cont =  q.executeUpdate();
 		log.debug("deletou visualizacoes: "+ cont);
+
+		q = manager.createQuery("delete from Assunto");
+		cont =  q.executeUpdate();
+		log.debug("deletou assuntos: "+ cont);
 		log.debug("");
 
 		commit();

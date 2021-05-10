@@ -30,17 +30,23 @@ public class Fachada {
 		v = new Video(link, nome);
 		Assunto a = daoassunto.read(palavra);
 		if(a == null) {
-			adicionarAssunto(v, palavra);
-			a = daoassunto.read(palavra);
+			a = new Assunto(palavra);
 		}
+		a.adicionar(v);
 		v.adicionar(a);
 		daovideo.create(v);
+		daoassunto.update(a);
 		DAO.commit();
 		return v;
 	}
 	
 	public static void adicionarAssunto(Video link, String palavra) throws Exception{
 		DAO.begin();
+		Video v = daovideo.read(link);
+		if(v == null) {
+			DAO.rollback();
+			throw new Exception("Link inexistente: " + link);
+		}
 		Assunto a = daoassunto.read(palavra);
 		if(a != null) {
 			DAO.rollback();
@@ -66,31 +72,14 @@ public class Fachada {
 		Visualizacao v = new Visualizacao(nota, usuario, video);
 		usuario.adicionar(v);
 		video.adicionar(v);
-		AtualizarMediaVideo(nota, link);
+		video.atualizarMedia();
 		daousuario.update(usuario);
 		daovideo.update(video);
 		daovisualizacao.create(v);
 		DAO.commit();
 		return v;
 	}
-	public static void AtualizarMediaVideo(int nota, String link)throws Exception {
-		DAO.begin();
-		if (nota>5 || nota<0){
-			DAO.rollback();
-			throw new Exception("Valor da nota maior que 5 ou menor que 0");
-		}
-		Video v =  daovideo.read(link);
-		if(v.getVisualizacoes().isEmpty()){
-			v.setMedia(nota);
-		}
-		else{
-			double media = v.getMedia() + nota/v.getVisualizacoes().size();
-			v.setMedia(media);
-		}
-		daovideo.update(v);
-		DAO.commit();
 
-	}
 	public static void apagarVisualizacao(int id)throws Exception{
 		DAO.begin();
 		Visualizacao vis = daovisualizacao.read(id);

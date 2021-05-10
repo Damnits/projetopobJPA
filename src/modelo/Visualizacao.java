@@ -1,21 +1,26 @@
 package modelo;
+import daojpa.TriggerListener;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 @Entity
+@Table(name = "Visualizacao20181370044")
+@EntityListeners(TriggerListener.class)
 public class Visualizacao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(columnDefinition = "DATE")
-	private String datahora = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+	private LocalDateTime datahora = LocalDateTime.now();
 	private int nota;
 	@Transient
 	private int idade;
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	private Usuario usuario;
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	private Video video;
 
 	public Visualizacao(){}
@@ -29,7 +34,7 @@ public class Visualizacao {
 		return id;
 	}
 
-	public String getdatahora() {
+	public LocalDateTime getdatahora() {
 		return datahora;
 	}
 
