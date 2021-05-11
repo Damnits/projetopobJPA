@@ -12,7 +12,8 @@ public class Assunto {
 	@ManyToMany(mappedBy="assuntos",
 			cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Video> videos = new ArrayList<>();
-
+	@Version
+	private int versao;
 	public Assunto(){}
 	public Assunto(String palavra){
 		this.palavra = palavra;

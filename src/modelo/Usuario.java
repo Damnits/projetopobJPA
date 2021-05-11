@@ -7,6 +7,8 @@ import java.util.List;
 public class Usuario {
 	@Id
 	private String email;
+	@Version
+	private int versao;
 	@OneToMany(mappedBy = "usuario",
 					cascade = {CascadeType.MERGE, CascadeType.PERSIST},
 					orphanRemoval = true,

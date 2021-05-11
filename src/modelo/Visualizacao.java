@@ -18,6 +18,8 @@ public class Visualizacao {
 	private int nota;
 	@Transient
 	private int idade;
+	@Version
+	private int versao;
 	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	private Usuario usuario;
 	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})

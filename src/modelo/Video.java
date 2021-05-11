@@ -15,6 +15,8 @@ public class Video {
 	private String nome;
 	@Column
 	private double media;
+	@Version
+	private int versao;
 	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Assunto> assuntos = new ArrayList<>();
 	@OneToMany(mappedBy = "video",
