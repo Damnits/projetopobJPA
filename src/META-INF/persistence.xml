@@ -8,6 +8,7 @@
     <persistence-unit name="eclipselink-postgres" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <!-- <property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://54.94.169.84:5432/agenda" />-->
