@@ -6,6 +6,7 @@ import java.util.List;
 @Entity
 @Table(name = "Assunto20181370044")
 
+@Cacheable(false)
 public class Assunto {
 	@Id
 	private String palavra;
