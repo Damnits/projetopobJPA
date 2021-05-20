@@ -2,13 +2,11 @@ package modelo;
 import daojpa.TriggerListener;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 @Entity
 @Table(name = "Visualizacao20181370044")
 @EntityListeners(TriggerListener.class)
+@Cacheable(false)
 public class Visualizacao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
