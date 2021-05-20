@@ -1,12 +1,11 @@
 package modelo;
-import daojpa.DAO;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "Video20181370044")
+@Cacheable(false)
 public class Video {
 	@Id
 	@Column
