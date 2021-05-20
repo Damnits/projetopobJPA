@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Table(name = "Usuario20181370044")
+@Cacheable(false)
 public class Usuario {
 	@Id
 	private String email;
