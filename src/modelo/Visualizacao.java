@@ -64,6 +64,7 @@ public class Visualizacao {
 		return "Visualizacao [id=" + id +
 				", datahora=" + datahora +
 				", nota=" + nota +
+				", idade"+ idade +
 				"\n usuario=" + usuario.getEmail()+ ", video=" + video.getNome() + "]";
 	}
 

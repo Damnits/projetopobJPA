@@ -9,8 +9,8 @@ public class Deletar {
         try {
             System.out.println("Deletando");
 
-            Fachada.apagarVisualizacao(4);
-            Fachada.apagarVisualizacao(5);
+            Fachada.apagarVisualizacao(1);
+//            Fachada.apagarVisualizacao(5);
 
             System.out.println();
 
